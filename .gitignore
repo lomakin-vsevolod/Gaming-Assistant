@@ -24,6 +24,5 @@ proguard/
 
 # Log Files
 *.log
-
-GamingAssistant/.idea/
+gaming_assistant/.idea/
 *.iml
