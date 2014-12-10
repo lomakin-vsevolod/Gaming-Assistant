@@ -38,6 +38,8 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+                showProgress();
+                view.setVisibility(View.INVISIBLE);
             }
 
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -47,11 +49,22 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                view.setVisibility(View.VISIBLE);
+                dismissProgress();
             }
         });
 
 
+
+
     }
 
+    private void dismissProgress() {
+        findViewById(android.R.id.progress).setVisibility(View.GONE);
+    }
+
+    private void showProgress() {
+        findViewById(android.R.id.progress).setVisibility(View.VISIBLE);
+    }
 
 }

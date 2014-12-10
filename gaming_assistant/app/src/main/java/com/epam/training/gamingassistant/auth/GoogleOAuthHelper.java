@@ -18,7 +18,7 @@ public class GoogleOAuthHelper {
     private static String CLIENT_ID = "42965839176-fnbm1lbt42e2dofu5em2ui9otve1lfgl.apps.googleusercontent.com";
     private static String REDIRECT_URI = "http://localhost";
     private static String OAUTH_URL = "https://accounts.google.com/o/oauth2/auth";
-    private static String OAUTH_SCOPE = "email%20profile";
+    private static String OAUTH_SCOPE = "https://www.googleapis.com/auth/plus.login";
     public static String AUTORIZATION_URL = OAUTH_URL + "?redirect_uri=" + REDIRECT_URI + "&response_type=code&client_id=" + CLIENT_ID + "&scope=" + OAUTH_SCOPE;
     private static String GRANT_TYPE = "authorization_code";
     private static String TOKEN_URL = "https://accounts.google.com/o/oauth2/token";
