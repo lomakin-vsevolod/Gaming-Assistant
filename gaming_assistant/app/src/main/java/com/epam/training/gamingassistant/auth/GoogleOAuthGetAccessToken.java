@@ -22,13 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by NuclearOK on 05.11.2014.
- */
+
 public class GoogleOAuthGetAccessToken {
-    static InputStream is = null;
-    static JSONObject jObj = null;
-    static String json = "";
+   private static InputStream is = null;
+   private static JSONObject jObj = null;
+   private static String json = "";
 
     public GoogleOAuthGetAccessToken() {
     }

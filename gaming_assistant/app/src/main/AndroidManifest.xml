@@ -24,9 +24,10 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name=".UserPageActivity"
-            android:label="@string/title_activity_user_page" >
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main_page" >
         </activity>
+
     </application>
 
 </manifest>

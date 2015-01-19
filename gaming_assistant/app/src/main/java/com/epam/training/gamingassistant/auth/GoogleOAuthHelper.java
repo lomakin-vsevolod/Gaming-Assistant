@@ -11,9 +11,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by NuclearOK on 05.11.2014.
- */
+
 public class GoogleOAuthHelper {
     private static String CLIENT_ID = "42965839176-fnbm1lbt42e2dofu5em2ui9otve1lfgl.apps.googleusercontent.com";
     private static String REDIRECT_URI = "http://localhost";
@@ -25,9 +23,9 @@ public class GoogleOAuthHelper {
     private static String CLIENT_SECRET = "UWbrpUz0TG9jtDoZUlTjvM6Z";
     private static String CODE;
     private static JSONObject temp;
-    boolean authComplete = false;
+    private boolean authComplete = false;
     private static Intent resultIntent = new Intent();
-    String authCode;
+    private String authCode;
     private static Activity act;
 
     public static boolean proceedRedirectURL(Activity activity, String url) {

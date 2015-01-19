@@ -2,9 +2,20 @@
 <resources>
 
     <string name="app_name">Gaming Assistant</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_user_page">UserPageActivity</string>
+    <string name="title_activity_main_page">MainActivity</string>
+    <string-array name="screen_array">
+        <item>Friends</item>
+        <item>Feed</item>
+        <item>Profile</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="screen_friend_list">friend_list</string>
+    <string name="screen_feed">feed</string>
+    <string name="screen_profile">profile</string>
+    <string name="action_search">Search</string>
+
 
 </resources>
