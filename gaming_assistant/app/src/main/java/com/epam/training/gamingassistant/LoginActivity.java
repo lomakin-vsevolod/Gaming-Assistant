@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.epam.training.gamingassistant.auth.GoogleOAuthHelper;
+import com.epam.training.gamingassistant.auth.VkOAuthHelper;
 
 import org.json.JSONException;
 
@@ -32,7 +33,7 @@ public class LoginActivity extends ActionBarActivity {
 
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl(GoogleOAuthHelper.AUTORIZATION_URL);
+        mWebView.loadUrl(VkOAuthHelper.AUTHORIZATION_URI);
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -43,7 +44,7 @@ public class LoginActivity extends ActionBarActivity {
             }
 
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return GoogleOAuthHelper.proceedRedirectURL(LoginActivity.this, url);
+                return VkOAuthHelper.proceedRedirectURL(LoginActivity.this, url);
             }
 
             @Override
@@ -53,10 +54,6 @@ public class LoginActivity extends ActionBarActivity {
                 dismissProgress();
             }
         });
-
-
-
-
     }
 
     private void dismissProgress() {

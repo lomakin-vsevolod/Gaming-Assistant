@@ -1,5 +1,6 @@
 package com.epam.training.gamingassistant;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 
 public class StartActivity extends ActionBarActivity {
@@ -33,9 +35,13 @@ public class StartActivity extends ActionBarActivity {
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
             Intent intent = new Intent(this,MainActivity.class);
             intent.putExtra(MainActivity.TOKEN,data.getStringExtra(MainActivity.TOKEN));
+            intent.putExtra(MainActivity.USER_ID,data.getStringExtra(MainActivity.USER_ID));
             startActivity(intent);
-        } else {
             finish();
+        } else {
+            if(requestCode == REQUEST_LOGIN && resultCode == RESULT_CANCELED){
+               Toast.makeText(this, data.getStringExtra(MainActivity.ERROR), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

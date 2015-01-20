@@ -23,6 +23,9 @@ import com.epam.training.gamingassistant.fragments.ProfileFragment;
 
 public class MainActivity extends ActionBarActivity {
     public static final String TOKEN = "token";
+    public static final String USER_ID = "user_id";
+    public static final String ERROR = "error";
+
     private String[] mScreenTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -31,12 +34,14 @@ public class MainActivity extends ActionBarActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String token;
+    private String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         token = getIntent().getStringExtra(TOKEN);
+        user_id = getIntent().getStringExtra(USER_ID);
         mTitle = mDrawerTitle = getTitle();
         mScreenTitles = getResources().getStringArray(R.array.screen_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
