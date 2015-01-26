@@ -99,16 +99,22 @@ public class NewsFeedAdapter extends BaseAdapter {
             if (ownerId.startsWith("-")){
                 Group groupRepost = getNewsFeedResponse.getGroupInfoFromId(ownerId.substring(1));
                 h.repost_name.setText(groupRepost.getName());
+                h.repost_avatar.setVisibility(View.VISIBLE);
                 BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.repost_avatar);
                 bitmapLoadTask.execute(groupRepost.getPhoto_50());
             } else {
                 Profile profileRepost = getNewsFeedResponse.getProfileInfoFromId(ownerId);
                 h.repost_name.setText(profileRepost.getFirst_name()+ " "+profileRepost.getLast_name());
+                h.repost_avatar.setVisibility(View.VISIBLE);
                 BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.repost_avatar);
                 bitmapLoadTask.execute(profileRepost.getPhoto_50());
             }
 
             h.text_repost.setText(getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getText());
+        } else{
+            h.repost_name.setText("");
+            h.text_repost.setText("");
+            h.repost_avatar.setVisibility(View.INVISIBLE);
         }
 
         return convertView;

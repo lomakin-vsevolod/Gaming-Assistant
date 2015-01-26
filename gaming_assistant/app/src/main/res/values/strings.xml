@@ -16,6 +16,7 @@
     <string name="screen_feed">feed</string>
     <string name="screen_profile">profile</string>
     <string name="action_search">Search</string>
+    <string name="vk_authorization">Vk Authorization</string>
 
 
 </resources>
