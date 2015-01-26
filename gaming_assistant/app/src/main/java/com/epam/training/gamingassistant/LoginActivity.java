@@ -1,23 +1,13 @@
 package com.epam.training.gamingassistant;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
-import com.epam.training.gamingassistant.auth.GoogleOAuthHelper;
 import com.epam.training.gamingassistant.auth.VkOAuthHelper;
-
-import org.json.JSONException;
 
 
 public class LoginActivity extends ActionBarActivity {

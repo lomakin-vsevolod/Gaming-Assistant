@@ -18,7 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.epam.training.gamingassistant.fragments.FriendListFragment;
-import com.epam.training.gamingassistant.fragments.FeedFragment;
+import com.epam.training.gamingassistant.fragments.NewsFeedFragment;
 import com.epam.training.gamingassistant.fragments.ProfileFragment;
 
 public class MainActivity extends ActionBarActivity {
@@ -113,18 +113,20 @@ public class MainActivity extends ActionBarActivity {
 
     private void selectItem(int position) {
         Fragment fragment = null;
+        Bundle args = new Bundle();
+        args.putString(TOKEN, token);
         switch (position) {
             case 0:
-                Bundle args = new Bundle();
-                args.putString(TOKEN, token);
-                fragment = new FriendListFragment();
+                fragment = new ProfileFragment();
                 fragment.setArguments(args);
                 break;
             case 1:
-                fragment = new ProfileFragment();
+                fragment = new FriendListFragment();
+                fragment.setArguments(args);
                 break;
             case 2:
-                fragment = new FeedFragment();
+                fragment = new NewsFeedFragment();
+                fragment.setArguments(args);
                 break;
             default:
                 break;

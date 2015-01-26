@@ -6,9 +6,9 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_main_page">MainActivity</string>
     <string-array name="screen_array">
-        <item>Friends</item>
-        <item>Feed</item>
         <item>Profile</item>
+        <item>Friends</item>
+        <item>News</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
