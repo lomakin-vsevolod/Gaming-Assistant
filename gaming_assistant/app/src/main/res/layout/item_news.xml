@@ -3,7 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -14,10 +17,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/source_avatar"
-            android:layout_gravity="center_vertical" />
+            android:paddingRight="8dp"/>
 
         <TextView
-            android:id="@+id/user_name"
+            android:id="@+id/source_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -31,7 +34,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/source_text"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -46,11 +49,11 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/repost_avatar"
-            android:layout_gravity="center_vertical" />
+            android:id="@+id/copy_avatar"
+            android:paddingRight="8dp" />
 
         <TextView
-            android:id="@+id/repost_name"
+            android:id="@+id/copy_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical" />
@@ -63,7 +66,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/text_repost"
+            android:id="@+id/copy_text"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

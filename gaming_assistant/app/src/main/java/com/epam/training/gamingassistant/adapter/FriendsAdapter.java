@@ -21,8 +21,8 @@ public class FriendsAdapter extends BaseAdapter {
     private Context context;
 
     private static class Holder {
-        ImageView image;
-        TextView name;
+        ImageView friend_avatar;
+        TextView friend_name;
     }
 
     public FriendsAdapter(Context context, List<Friend> friends) {
@@ -51,14 +51,14 @@ public class FriendsAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_friend, parent, false);
             Holder holder = new Holder();
-            holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.image = (ImageView) convertView.findViewById(R.id.friend_avatar);
+            holder.friend_name = (TextView) convertView.findViewById(R.id.friend_name);
+            holder.friend_avatar = (ImageView) convertView.findViewById(R.id.friend_avatar);
             convertView.setTag(holder);
         }
 
         Holder h = (Holder) convertView.getTag();
-        h.name.setText(friends.get(position).getFirst_name()+" "+friends.get(position).getLast_name());
-        BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.image);
+        h.friend_name.setText(friends.get(position).getFirst_name() + " " + friends.get(position).getLast_name());
+        BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.friend_avatar);
         bitmapLoadTask.execute(friends.get(position).getPhoto_100());
         return convertView;
     }

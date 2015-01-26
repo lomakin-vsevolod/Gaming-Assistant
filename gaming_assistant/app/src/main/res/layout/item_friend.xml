@@ -8,15 +8,17 @@
     android:paddingBottom="8dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher"
-        android:id="@+id/friend_avatar"/>
+        android:id="@+id/friend_avatar"
+        android:layout_marginRight="8dip"/>
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/friend_name"
         android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

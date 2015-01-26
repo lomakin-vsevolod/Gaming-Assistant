@@ -1,9 +1,6 @@
 package com.epam.training.gamingassistant.adapter;
 
 import android.content.Context;
-import android.graphics.PointF;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +10,9 @@ import android.widget.TextView;
 
 import com.epam.training.gamingassistant.R;
 import com.epam.training.gamingassistant.bo.newsfeed.GetNewsFeedResponse;
-import com.epam.training.gamingassistant.bo.newsfeed.News;
 import com.epam.training.gamingassistant.bo.newsfeed.Profile;
 import com.epam.training.gamingassistant.bo.newsfeed.Group;
 import com.epam.training.gamingassistant.tasks.BitmapLoadTask;
-
-import org.w3c.dom.Text;
-
-
-import java.util.List;
 
 /**
  * Created by NuclearOK on 23.01.2015.
@@ -40,11 +31,11 @@ public class NewsFeedAdapter extends BaseAdapter {
 
     private static class Holder{
         ImageView source_avatar;
-        TextView user_name;
-        TextView text;
-        ImageView repost_avatar;
-        TextView repost_name;
-        TextView text_repost;
+        TextView source_name;
+        TextView source_text;
+        ImageView copy_avatar;
+        TextView copy_name;
+        TextView copy_text;
     }
     @Override
     public int getCount() {
@@ -67,54 +58,59 @@ public class NewsFeedAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_news,parent,false);
             Holder holder = new Holder();
-            holder.text = (TextView) convertView.findViewById(R.id.text);
             holder.source_avatar = (ImageView) convertView.findViewById(R.id.source_avatar);
-            holder.text_repost = (TextView) convertView.findViewById(R.id.text_repost);
-            holder.user_name = (TextView) convertView.findViewById(R.id.user_name);
-            holder.repost_avatar = (ImageView) convertView.findViewById(R.id.repost_avatar);
-            holder.repost_name = (TextView) convertView.findViewById(R.id.repost_name);
+            holder.source_name = (TextView) convertView.findViewById(R.id.source_name);
+            holder.source_text = (TextView) convertView.findViewById(R.id.source_text);
+            holder.copy_avatar = (ImageView) convertView.findViewById(R.id.copy_avatar);
+            holder.copy_name = (TextView) convertView.findViewById(R.id.copy_name);
+            holder.copy_text = (TextView) convertView.findViewById(R.id.copy_text);
             convertView.setTag(holder);
         }
 
         Holder h = (Holder) convertView.getTag();
-        String id = getNewsFeedResponse.getItems().get(position).getSource_id();
+        String sourceId = getNewsFeedResponse.getItems().get(position).getSource_id();
 
-        if (id.startsWith("-")){
-            Group group = getNewsFeedResponse.getGroupInfoFromId(id.substring(1));
-            h.user_name.setText(group.getName());
+        if (sourceId.startsWith("-")){
+            Group group = getNewsFeedResponse.getGroupInfoFromId(sourceId.substring(1));
+            h.source_name.setText(group.getName());
             BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.source_avatar);
             bitmapLoadTask.execute(group.getPhoto_50());
         } else {
-            Profile profile = getNewsFeedResponse.getProfileInfoFromId(id);
-            h.user_name.setText(profile.getFirst_name()+ " "+profile.getLast_name());
+            Profile profile = getNewsFeedResponse.getProfileInfoFromId(sourceId);
+            h.source_name.setText(profile.getFirst_name() + " " + profile.getLast_name());
             BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.source_avatar);
             bitmapLoadTask.execute(profile.getPhoto_50());
         }
-        h.text.setText(getNewsFeedResponse.getItems().get(position).getText());
+        h.source_text.setText(getNewsFeedResponse.getItems().get(position).getText());
 
 
         if (getNewsFeedResponse.getItems().get(position).getCopy_history() != null && getNewsFeedResponse.getItems().get(position).getCopy_history().size() > 0) {
-            String ownerId = getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getOwner_id();
-
-            if (ownerId.startsWith("-")){
-                Group groupRepost = getNewsFeedResponse.getGroupInfoFromId(ownerId.substring(1));
-                h.repost_name.setText(groupRepost.getName());
-                h.repost_avatar.setVisibility(View.VISIBLE);
-                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.repost_avatar);
-                bitmapLoadTask.execute(groupRepost.getPhoto_50());
+            String copyOwnerId = getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getOwner_id();
+            if (copyOwnerId.startsWith("-")){
+                Group copyGroup = getNewsFeedResponse.getGroupInfoFromId(copyOwnerId.substring(1));
+                h.copy_name.setText(copyGroup.getName());
+                h.copy_name.setVisibility(View.VISIBLE);
+                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.copy_avatar);
+                bitmapLoadTask.execute(copyGroup.getPhoto_50());
+                h.copy_avatar.setVisibility(View.VISIBLE);
             } else {
-                Profile profileRepost = getNewsFeedResponse.getProfileInfoFromId(ownerId);
-                h.repost_name.setText(profileRepost.getFirst_name()+ " "+profileRepost.getLast_name());
-                h.repost_avatar.setVisibility(View.VISIBLE);
-                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.repost_avatar);
-                bitmapLoadTask.execute(profileRepost.getPhoto_50());
+                Profile copyProfile = getNewsFeedResponse.getProfileInfoFromId(copyOwnerId);
+                h.copy_name.setText(copyProfile.getFirst_name() + " " + copyProfile.getLast_name());
+                h.copy_name.setVisibility(View.VISIBLE);
+
+                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.copy_avatar);
+                bitmapLoadTask.execute(copyProfile.getPhoto_50());
+                h.copy_avatar.setVisibility(View.VISIBLE);
             }
 
-            h.text_repost.setText(getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getText());
+            h.copy_text.setText(getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getText());
+            h.copy_text.setVisibility(View.VISIBLE);
         } else{
-            h.repost_name.setText("");
-            h.text_repost.setText("");
-            h.repost_avatar.setVisibility(View.INVISIBLE);
+            h.copy_name.setText("");
+            h.copy_text.setText("");
+            h.copy_avatar.setVisibility(View.INVISIBLE);
+            h.copy_text.setVisibility(View.INVISIBLE);
+            h.copy_name.setVisibility(View.INVISIBLE);
         }
 
         return convertView;

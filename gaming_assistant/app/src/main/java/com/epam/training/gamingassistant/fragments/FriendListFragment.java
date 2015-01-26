@@ -57,8 +57,8 @@ public class FriendListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        GetFriendListTask task = new GetFriendListTask();
-        task.execute();
+        GetFriendListTask getFriendListTask = new GetFriendListTask();
+        getFriendListTask.execute();
     }
 
 
@@ -89,8 +89,8 @@ public class FriendListFragment extends Fragment {
                 }
                 in.close();
                 JSONObject jsonObject = new JSONObject(sb.toString()).getJSONObject("response");
-                GetFriendsResponse friendlist = gson.fromJson(jsonObject.toString(), GetFriendsResponse.class);
-                return friendlist;
+                GetFriendsResponse getFriendsResponse = gson.fromJson(jsonObject.toString(), GetFriendsResponse.class);
+                return getFriendsResponse;
 
             } catch (IOException | JSONException | URISyntaxException e) {
                 e.printStackTrace();
@@ -108,8 +108,8 @@ public class FriendListFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(GetFriendsResponse friendsResponse) {
-            friendsAdapter = new FriendsAdapter(getActivity(), friendsResponse.getItems());
+        protected void onPostExecute(GetFriendsResponse getFriendsResponse) {
+            friendsAdapter = new FriendsAdapter(getActivity(), getFriendsResponse.getItems());
             listView.setAdapter(friendsAdapter);
         }
 

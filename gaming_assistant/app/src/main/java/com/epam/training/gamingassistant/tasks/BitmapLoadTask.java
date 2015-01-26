@@ -17,30 +17,30 @@ import java.net.URL;
 public class BitmapLoadTask extends AsyncTask<String, Void, Bitmap> {
     private final WeakReference<ImageView> imageViewReference;
 
-    public BitmapLoadTask(ImageView imageView){
+    public BitmapLoadTask(ImageView imageView) {
         imageViewReference = new WeakReference<ImageView>(imageView);
     }
 
     @Override
     protected Bitmap doInBackground(String... params) {
         URL url = null;
-        try {
-            url = new URL(params[0]);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         InputStream inputStream = null;
         try {
-            if (url != null) {
-                inputStream = url.openStream();
-            }
+            url = new URL(params[0]);
+            inputStream = url.openStream();
+            return BitmapFactory.decodeStream(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return BitmapFactory.decodeStream(inputStream);
-
+        return null;
     }
 
     @Override
