@@ -31,9 +31,6 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/**
- * Created by NuclearOK on 14.01.2015.
- */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class NewsFeedFragment extends Fragment {
 

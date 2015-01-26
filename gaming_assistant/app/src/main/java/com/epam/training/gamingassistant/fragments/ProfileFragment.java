@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 
 import com.epam.training.gamingassistant.R;
 
-/**
- * Created by NuclearOK on 14.01.2015.
- */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class ProfileFragment extends Fragment {
 

@@ -14,9 +14,7 @@ import com.epam.training.gamingassistant.bo.newsfeed.Profile;
 import com.epam.training.gamingassistant.bo.newsfeed.Group;
 import com.epam.training.gamingassistant.tasks.BitmapLoadTask;
 
-/**
- * Created by NuclearOK on 23.01.2015.
- */
+
 public class NewsFeedAdapter extends BaseAdapter {
 
 
@@ -73,11 +71,13 @@ public class NewsFeedAdapter extends BaseAdapter {
         if (sourceId.startsWith("-")){
             Group group = getNewsFeedResponse.getGroupInfoFromId(sourceId.substring(1));
             h.source_name.setText(group.getName());
+            h.source_avatar.setTag(group.getPhoto_50());
             BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.source_avatar);
             bitmapLoadTask.execute(group.getPhoto_50());
         } else {
             Profile profile = getNewsFeedResponse.getProfileInfoFromId(sourceId);
             h.source_name.setText(profile.getFirst_name() + " " + profile.getLast_name());
+            h.source_avatar.setTag(profile.getPhoto_50());
             BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.source_avatar);
             bitmapLoadTask.execute(profile.getPhoto_50());
         }
@@ -97,12 +97,10 @@ public class NewsFeedAdapter extends BaseAdapter {
                 Profile copyProfile = getNewsFeedResponse.getProfileInfoFromId(copyOwnerId);
                 h.copy_name.setText(copyProfile.getFirst_name() + " " + copyProfile.getLast_name());
                 h.copy_name.setVisibility(View.VISIBLE);
-
                 BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.copy_avatar);
                 bitmapLoadTask.execute(copyProfile.getPhoto_50());
                 h.copy_avatar.setVisibility(View.VISIBLE);
             }
-
             h.copy_text.setText(getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getText());
             h.copy_text.setVisibility(View.VISIBLE);
         } else{
@@ -112,7 +110,6 @@ public class NewsFeedAdapter extends BaseAdapter {
             h.copy_text.setVisibility(View.INVISIBLE);
             h.copy_name.setVisibility(View.INVISIBLE);
         }
-
         return convertView;
     }
 }

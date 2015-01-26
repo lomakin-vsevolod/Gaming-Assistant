@@ -12,14 +12,12 @@ import com.epam.training.gamingassistant.auth.VkOAuthHelper;
 
 public class LoginActivity extends ActionBarActivity {
 
-
     private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.getSettings().setJavaScriptEnabled(true);

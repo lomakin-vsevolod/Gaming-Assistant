@@ -12,7 +12,6 @@ public class StartActivity extends ActionBarActivity {
     public static final int REQUEST_LOGIN = 0;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +28,14 @@ public class StartActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
-            Intent intent = new Intent(this,MainActivity.class);
-            intent.putExtra(MainActivity.TOKEN,data.getStringExtra(MainActivity.TOKEN));
-            intent.putExtra(MainActivity.USER_ID,data.getStringExtra(MainActivity.USER_ID));
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(MainActivity.TOKEN, data.getStringExtra(MainActivity.TOKEN));
+            intent.putExtra(MainActivity.USER_ID, data.getStringExtra(MainActivity.USER_ID));
             startActivity(intent);
             finish();
         } else {
-            if(requestCode == REQUEST_LOGIN && resultCode == RESULT_CANCELED){
-               Toast.makeText(this, data.getStringExtra(MainActivity.ERROR), Toast.LENGTH_SHORT).show();
+            if (requestCode == REQUEST_LOGIN && resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, data.getStringExtra(MainActivity.ERROR), Toast.LENGTH_SHORT).show();
             }
         }
     }

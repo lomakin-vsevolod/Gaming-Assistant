@@ -11,9 +11,6 @@ import com.epam.training.gamingassistant.MainActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by NuclearOK on 20.01.2015.
- */
 public class VkOAuthHelper {
 
     private static final String OAUTH_URL = "https://oauth.vk.com/authorize";

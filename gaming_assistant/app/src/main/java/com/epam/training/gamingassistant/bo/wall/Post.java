@@ -4,9 +4,6 @@ import com.epam.training.gamingassistant.bo.attachments.Attachment;
 
 import java.util.List;
 
-/**
- * Created by NuclearOK on 24.01.2015.
- */
 public class Post {
 
     public Post(String id, String owner_id, String from_id, String date, String text, List<Attachment> attachments) {

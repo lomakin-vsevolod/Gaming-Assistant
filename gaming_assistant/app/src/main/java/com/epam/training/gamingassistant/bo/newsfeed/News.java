@@ -5,9 +5,6 @@ import com.epam.training.gamingassistant.bo.wall.Post;
 
 import java.util.List;
 
-/**
- * Created by NuclearOK on 23.01.2015.
- */
 public class News {
 
     public News(String type, String final_post, String text, String can_edit, String can_delete, List<Attachment> attachments, List<Post> copy_history, String source_id, String date, String post_id, String post_type) {

@@ -6,9 +6,6 @@ import com.epam.training.gamingassistant.bo.friends.Friend;
 
 import java.util.List;
 
-/**
- * Created by NuclearOK on 23.01.2015.
- */
 public class GetNewsFeedResponse {
 
     private List<News> items;

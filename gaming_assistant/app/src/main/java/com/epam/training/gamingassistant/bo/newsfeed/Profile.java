@@ -1,8 +1,5 @@
 package com.epam.training.gamingassistant.bo.newsfeed;
 
-/**
- * Created by NuclearOK on 24.01.2015.
- */
 public class Profile {
     private String id;
     private String first_name;

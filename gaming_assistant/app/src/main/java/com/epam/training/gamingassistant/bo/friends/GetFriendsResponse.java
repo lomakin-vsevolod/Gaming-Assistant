@@ -4,9 +4,6 @@ import com.epam.training.gamingassistant.bo.friends.Friend;
 
 import java.util.List;
 
-/**
- * Created by NuclearOK on 22.01.2015.
- */
 public class GetFriendsResponse {
 
     private int count;

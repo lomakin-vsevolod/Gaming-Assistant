@@ -11,9 +11,6 @@ import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by NuclearOK on 23.01.2015.
- */
 public class BitmapLoadTask extends AsyncTask<String, Void, Bitmap> {
     private final WeakReference<ImageView> imageViewReference;
 

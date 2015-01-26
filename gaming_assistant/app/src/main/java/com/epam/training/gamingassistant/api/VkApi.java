@@ -1,8 +1,5 @@
 package com.epam.training.gamingassistant.api;
 
-/**
- * Created by NuclearOK on 23.01.2015.
- */
 public class VkApi {
     private static final String METHOD_URL ="https://api.vk.com/method/";
     private static final String VERSION = "v=5.27";
