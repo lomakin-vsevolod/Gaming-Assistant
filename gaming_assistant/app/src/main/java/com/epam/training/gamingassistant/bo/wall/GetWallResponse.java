@@ -1,17 +1,27 @@
-package com.epam.training.gamingassistant.bo.newsfeed;
+package com.epam.training.gamingassistant.bo.wall;
 
 import com.epam.training.gamingassistant.bo.extended.Group;
 import com.epam.training.gamingassistant.bo.extended.Profile;
 
 import java.util.List;
 
-public class GetNewsFeedResponse {
 
-    private List<News> items;
+public class GetWallResponse {
+    private List<Post> items;
     private List<Profile> profiles;
     private List<Group> groups;
-    private String next_from;
 
+    public List<Post> getItems() {
+        return items;
+    }
+
+    public List<Profile> getProfiles() {
+        return profiles;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
 
     public Profile getProfileInfoFromId(String id){
         if (profiles.size() != 0){
@@ -35,21 +45,5 @@ public class GetNewsFeedResponse {
             }
         }
         return null;
-    }
-
-    public String getNext_from() {
-        return next_from;
-    }
-
-    public List<News> getItems(){
-        return items;
-    }
-
-    public List<Profile> getProfiles() {
-        return profiles;
-    }
-
-    public List<Group> getGroups() {
-        return groups;
     }
 }

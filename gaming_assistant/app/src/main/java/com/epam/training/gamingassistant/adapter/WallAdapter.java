@@ -10,22 +10,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.epam.training.gamingassistant.R;
-import com.epam.training.gamingassistant.bo.newsfeed.GetNewsFeedResponse;
 import com.epam.training.gamingassistant.bo.extended.Group;
 import com.epam.training.gamingassistant.bo.extended.Profile;
+import com.epam.training.gamingassistant.bo.wall.GetWallResponse;
 import com.epam.training.gamingassistant.tasks.BitmapLoadTask;
 
 
-public class NewsFeedAdapter extends BaseAdapter {
+public class WallAdapter extends BaseAdapter {
 
 
-    private GetNewsFeedResponse getNewsFeedResponse;
+    private GetWallResponse getWallResponse;
     private Context context;
 
-    public NewsFeedAdapter(Context context, GetNewsFeedResponse getNewsFeedResponse) {
+    public WallAdapter( Context context,GetWallResponse getWallResponse) {
         this.context = context;
-        this.getNewsFeedResponse = getNewsFeedResponse;
-
+        this.getWallResponse = getWallResponse;
     }
 
     private class Holder {
@@ -40,17 +39,17 @@ public class NewsFeedAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return getNewsFeedResponse.getItems().size();
+        return getWallResponse.getItems().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return getNewsFeedResponse.getItems().get(position);
+        return getWallResponse.getItems().get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return getNewsFeedResponse.getItems().get(position).hashCode();
+        return getWallResponse.getItems().get(position).hashCode();
     }
 
     @Override
@@ -70,40 +69,41 @@ public class NewsFeedAdapter extends BaseAdapter {
         }
 
         Holder h = (Holder) convertView.getTag();
-        String sourceId = getNewsFeedResponse.getItems().get(position).getSource_id();
+        String ownerId = getWallResponse.getItems().get(position).getFrom_id();
 
-        if (sourceId.startsWith("-")) {
-            Group group = getNewsFeedResponse.getGroupInfoFromId(sourceId.substring(1));
+        if (ownerId.startsWith("-")) {
+            Group group = getWallResponse.getGroupInfoFromId(ownerId.substring(1));
             h.sourceName.setText(group.getName());
             BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
             bitmapLoadTask.execute(group.getPhoto_50());
         } else {
-            Profile profile = getNewsFeedResponse.getProfileInfoFromId(sourceId);
+            Profile profile = getWallResponse.getProfileInfoFromId(ownerId);
             h.sourceName.setText(profile.getFirst_name() + " " + profile.getLast_name());
             BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
             bitmapLoadTask.execute(profile.getPhoto_50());
         }
-        h.sourceText.setText(getNewsFeedResponse.getItems().get(position).getText());
+        h.sourceText.setText(getWallResponse.getItems().get(position).getText());
 
 
-        if (getNewsFeedResponse.getItems().get(position).getCopy_history() != null && getNewsFeedResponse.getItems().get(position).getCopy_history().size() > 0) {
-            String copyOwnerId = getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getOwner_id();
+        if (getWallResponse.getItems().get(position).getCopy_history() != null && getWallResponse.getItems().get(position).getCopy_history().size() > 0) {
+            String copyOwnerId = getWallResponse.getItems().get(position).getCopy_history().get(0).getOwner_id();
             h.copyLayout.setVisibility(View.VISIBLE);
             if (copyOwnerId.startsWith("-")) {
-                Group copyGroup = getNewsFeedResponse.getGroupInfoFromId(copyOwnerId.substring(1));
+                Group copyGroup = getWallResponse.getGroupInfoFromId(copyOwnerId.substring(1));
                 h.copyName.setText(copyGroup.getName());
                 BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.copyAvatar);
                 bitmapLoadTask.execute(copyGroup.getPhoto_50());
             } else {
-                Profile copyProfile = getNewsFeedResponse.getProfileInfoFromId(copyOwnerId);
+                Profile copyProfile = getWallResponse.getProfileInfoFromId(copyOwnerId);
                 h.copyName.setText(copyProfile.getFirst_name() + " " + copyProfile.getLast_name());
                 BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.copyAvatar);
                 bitmapLoadTask.execute(copyProfile.getPhoto_50());
             }
-            h.copyText.setText(getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getText());
+            h.copyText.setText(getWallResponse.getItems().get(position).getCopy_history().get(0).getText());
         } else {
             h.copyLayout.setVisibility(View.INVISIBLE);
         }
         return convertView;
+
     }
 }

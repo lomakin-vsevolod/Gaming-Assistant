@@ -6,13 +6,14 @@ import java.util.List;
 
 public class Post {
 
-    public Post(String id, String owner_id, String from_id, String date, String text, List<Attachment> attachments) {
+    public Post(String id, String owner_id, String from_id, String date, String text, List<Attachment> attachments, List<Post> copy_history) {
         this.id = id;
         this.owner_id = owner_id;
         this.from_id = from_id;
         this.date = date;
         this.text = text;
         this.attachments = attachments;
+        this.copy_history = copy_history;
     }
 
     public String getId() {
@@ -39,10 +40,15 @@ public class Post {
         return attachments;
     }
 
+    public List<Post> getCopy_history() {
+        return copy_history;
+    }
+
     private String id;
     private String owner_id;
     private String from_id;
     private String date;
     private String text;
     private List<Attachment> attachments;
+    private List<Post> copy_history;
 }

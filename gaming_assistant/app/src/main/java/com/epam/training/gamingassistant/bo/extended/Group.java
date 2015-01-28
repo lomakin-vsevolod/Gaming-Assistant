@@ -1,10 +1,11 @@
-package com.epam.training.gamingassistant.bo.newsfeed;
+package com.epam.training.gamingassistant.bo.extended;
 
 public class Group {
     private String id;
     private String name;
     private String screen_name;
     private String photo_50;
+
 
     public Group(String id, String name, String screen_name, String photo_50) {
         this.id = id;

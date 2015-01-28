@@ -1,4 +1,4 @@
-package com.epam.training.gamingassistant.bo.newsfeed;
+package com.epam.training.gamingassistant.bo.extended;
 
 public class Profile {
     private String id;

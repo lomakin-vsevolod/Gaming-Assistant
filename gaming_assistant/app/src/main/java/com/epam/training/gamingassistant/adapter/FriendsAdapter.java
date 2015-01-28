@@ -62,4 +62,5 @@ public class FriendsAdapter extends BaseAdapter {
         bitmapLoadTask.execute(friends.get(position).getPhoto_100());
         return convertView;
     }
+    
 }

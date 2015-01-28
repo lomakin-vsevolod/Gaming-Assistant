@@ -10,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.epam.training.gamingassistant.MainActivity;
 import com.epam.training.gamingassistant.R;
 import com.epam.training.gamingassistant.adapter.NewsFeedAdapter;
 import com.epam.training.gamingassistant.api.VkApi;
+import com.epam.training.gamingassistant.api.VkApiConstants;
 import com.epam.training.gamingassistant.bo.newsfeed.GetNewsFeedResponse;
+import com.epam.training.gamingassistant.tasks.GetNewsFeedListTask;
 import com.google.gson.Gson;
 
 import org.apache.http.HttpResponse;
@@ -32,7 +35,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class NewsFeedFragment extends Fragment {
+public class NewsFeedFragment extends Fragment implements GetNewsFeedListTask.OnNewsFeedListResponse {
 
     private String token;
     private ListView listView;
@@ -57,60 +60,21 @@ public class NewsFeedFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        GetNewsFeedTask getNewsFeedTask = new GetNewsFeedTask();
-        getNewsFeedTask.execute();
+        GetNewsFeedListTask getNewsFeedListTask = new GetNewsFeedListTask(token);
+        getNewsFeedListTask.setListener(this);
+        getNewsFeedListTask.execute();
     }
 
-    private class GetNewsFeedTask extends AsyncTask<Void, Void, GetNewsFeedResponse> {
-
-        private Gson gson = new Gson();
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected GetNewsFeedResponse doInBackground(Void... args) {
-            BufferedReader in = null;
-            try {
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(VkApi.NEWS_FEED_GET_URI + token));
-                HttpResponse response = client.execute(request);
-                in = new BufferedReader
-                        (new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line = "";
-                String NL = System.getProperty("line.separator");
-                while ((line = in.readLine()) != null) {
-                    sb.append(line + NL);
-                }
-                in.close();
-                JSONObject jsonObject = new JSONObject(sb.toString()).getJSONObject("response");
-                GetNewsFeedResponse newsFeedResponse = gson.fromJson(jsonObject.toString(), GetNewsFeedResponse.class);
-                return newsFeedResponse;
-
-            } catch (IOException | JSONException | URISyntaxException e) {
-                e.printStackTrace();
-            } finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(GetNewsFeedResponse newsFeedResponse) {
-            newsFeedAdapter = new NewsFeedAdapter(getActivity(), newsFeedResponse);
-            listView.setAdapter(newsFeedAdapter);
-        }
-
+    @Override
+    public void onCompleted(GetNewsFeedResponse getNewsFeedResponse) {
+        newsFeedAdapter = new NewsFeedAdapter(getActivity(), getNewsFeedResponse);
+        listView.setAdapter(newsFeedAdapter);
     }
+
+    @Override
+    public void onError(String error) {
+        Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
+    }
+
+
 }
