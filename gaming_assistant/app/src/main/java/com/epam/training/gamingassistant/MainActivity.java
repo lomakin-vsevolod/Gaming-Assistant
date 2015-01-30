@@ -115,6 +115,7 @@ public class MainActivity extends ActionBarActivity {
         Fragment fragment = null;
         Bundle args = new Bundle();
         args.putString(TOKEN, token);
+        args.putString(USER_ID, user_id);
         switch (position) {
             case 0:
                 fragment = new ProfileFragment();

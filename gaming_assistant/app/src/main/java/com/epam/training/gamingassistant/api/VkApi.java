@@ -98,4 +98,13 @@ public class VkApi {
         }
         return null;
     }
+
+    public static Void postOnWall(String token) {
+        try {
+            String response = doApiRequest(VkApiConstants.WALL_POST_URI + token);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

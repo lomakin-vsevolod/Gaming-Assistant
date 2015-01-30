@@ -21,7 +21,7 @@ public class School {
     private String name;
     private int year_from;
     private int year_to;
-    private int year_graduated ;
+    private int year_graduated;
 
     public int getId() {
         return id;
@@ -63,7 +63,7 @@ public class School {
         return type_str;
     }
 
-    private String  speciality;
+    private String speciality;
     private int type;
     private String type_str;
 

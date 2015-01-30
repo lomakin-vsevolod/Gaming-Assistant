@@ -17,14 +17,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/source_avatar"
-            android:paddingRight="8dp"/>
+            android:paddingRight="8dp" />
 
         <TextView
             android:id="@+id/source_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            />
+            android:layout_gravity="center_vertical" />
 
     </LinearLayout>
 
@@ -37,7 +36,10 @@
             android:id="@+id/source_text"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            />
 
     </LinearLayout>
 
@@ -76,11 +78,12 @@
                 android:id="@+id/copy_text"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                />
 
         </LinearLayout>
-
-
 
 
     </LinearLayout>

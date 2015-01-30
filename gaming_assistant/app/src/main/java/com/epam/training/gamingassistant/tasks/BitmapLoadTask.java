@@ -8,11 +8,11 @@ import android.widget.ImageView;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class BitmapLoadTask extends AsyncTask<String, Void, Bitmap> {
     private final WeakReference<ImageView> imageViewReference;
+    private String url;
 
     public BitmapLoadTask(ImageView imageView) {
         imageViewReference = new WeakReference<ImageView>(imageView);
@@ -20,6 +20,7 @@ public class BitmapLoadTask extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected Bitmap doInBackground(String... params) {
+        this.url = params[0];
         URL url = null;
         InputStream inputStream = null;
         try {
@@ -45,7 +46,9 @@ public class BitmapLoadTask extends AsyncTask<String, Void, Bitmap> {
         if (imageViewReference != null && bitmap != null) {
             final ImageView imageView = imageViewReference.get();
             if (imageView != null) {
-                imageView.setImageBitmap(bitmap);
+                if (imageView.getTag() == null || imageView.getTag().equals(url)) {
+                    imageView.setImageBitmap(bitmap);
+                }
             }
         }
     }

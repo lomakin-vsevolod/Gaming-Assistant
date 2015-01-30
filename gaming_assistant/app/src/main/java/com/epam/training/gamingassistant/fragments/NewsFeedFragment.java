@@ -1,7 +1,6 @@
 package com.epam.training.gamingassistant.fragments;
 
 import android.annotation.TargetApi;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,30 +8,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.epam.training.gamingassistant.MainActivity;
 import com.epam.training.gamingassistant.R;
 import com.epam.training.gamingassistant.adapter.NewsFeedAdapter;
-import com.epam.training.gamingassistant.api.VkApi;
-import com.epam.training.gamingassistant.api.VkApiConstants;
 import com.epam.training.gamingassistant.bo.newsfeed.GetNewsFeedResponse;
+import com.epam.training.gamingassistant.imageloader.ImageLoader;
 import com.epam.training.gamingassistant.tasks.GetNewsFeedListTask;
-import com.google.gson.Gson;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class NewsFeedFragment extends Fragment implements GetNewsFeedListTask.OnNewsFeedListResponse {
@@ -69,11 +54,32 @@ public class NewsFeedFragment extends Fragment implements GetNewsFeedListTask.On
     public void onCompleted(GetNewsFeedResponse getNewsFeedResponse) {
         newsFeedAdapter = new NewsFeedAdapter(getActivity(), getNewsFeedResponse);
         listView.setAdapter(newsFeedAdapter);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                switch (scrollState) {
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                        ImageLoader.getImageLoader().start();
+                        break;
+                    case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+                        ImageLoader.getImageLoader().stop();
+                        break;
+                    case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+                        ImageLoader.getImageLoader().stop();
+                        break;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
     }
 
     @Override
     public void onError(String error) {
-        Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
     }
 
 

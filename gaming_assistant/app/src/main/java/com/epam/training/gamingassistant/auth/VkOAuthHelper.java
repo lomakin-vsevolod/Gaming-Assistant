@@ -3,13 +3,9 @@ package com.epam.training.gamingassistant.auth;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.epam.training.gamingassistant.MainActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class VkOAuthHelper {
 
@@ -26,18 +22,17 @@ public class VkOAuthHelper {
         if (url.startsWith(REDIRECT_URI)) {
             Uri uri = Uri.parse(url);
             String fragment = uri.getFragment();
-            if (fragment != null)
-             {
-                uri = Uri.parse("?"+fragment);
+            if (fragment != null) {
+                uri = Uri.parse("?" + fragment);
                 String authToken = uri.getQueryParameter("access_token");
-                String authUserId= uri.getQueryParameter("user_id");
+                String authUserId = uri.getQueryParameter("user_id");
                 Intent intent = new Intent();
                 intent.putExtra(MainActivity.TOKEN, authToken);
                 intent.putExtra(MainActivity.USER_ID, authUserId);
                 activity.setResult(Activity.RESULT_OK, intent);
                 activity.finish();
                 return true;
-            } else  {
+            } else {
                 Log.d("", "ACCESS_DENIED_HERE");
                 String errorDescription = uri.getQueryParameter("error_description");
                 Intent intent = new Intent();

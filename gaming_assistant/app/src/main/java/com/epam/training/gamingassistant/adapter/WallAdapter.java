@@ -13,7 +13,7 @@ import com.epam.training.gamingassistant.R;
 import com.epam.training.gamingassistant.bo.extended.Group;
 import com.epam.training.gamingassistant.bo.extended.Profile;
 import com.epam.training.gamingassistant.bo.wall.GetWallResponse;
-import com.epam.training.gamingassistant.tasks.BitmapLoadTask;
+import com.epam.training.gamingassistant.imageloader.ImageLoader;
 
 
 public class WallAdapter extends BaseAdapter {
@@ -22,7 +22,7 @@ public class WallAdapter extends BaseAdapter {
     private GetWallResponse getWallResponse;
     private Context context;
 
-    public WallAdapter( Context context,GetWallResponse getWallResponse) {
+    public WallAdapter(Context context, GetWallResponse getWallResponse) {
         this.context = context;
         this.getWallResponse = getWallResponse;
     }
@@ -74,13 +74,13 @@ public class WallAdapter extends BaseAdapter {
         if (ownerId.startsWith("-")) {
             Group group = getWallResponse.getGroupInfoFromId(ownerId.substring(1));
             h.sourceName.setText(group.getName());
-            BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
-            bitmapLoadTask.execute(group.getPhoto_50());
+            h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
+            ImageLoader.getImageLoader().loadImage(group.getPhoto_50(), h.sourceAvatar);
         } else {
             Profile profile = getWallResponse.getProfileInfoFromId(ownerId);
             h.sourceName.setText(profile.getFirst_name() + " " + profile.getLast_name());
-            BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
-            bitmapLoadTask.execute(profile.getPhoto_50());
+            h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
+            ImageLoader.getImageLoader().loadImage(profile.getPhoto_50(), h.sourceAvatar);
         }
         h.sourceText.setText(getWallResponse.getItems().get(position).getText());
 
@@ -91,17 +91,17 @@ public class WallAdapter extends BaseAdapter {
             if (copyOwnerId.startsWith("-")) {
                 Group copyGroup = getWallResponse.getGroupInfoFromId(copyOwnerId.substring(1));
                 h.copyName.setText(copyGroup.getName());
-                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.copyAvatar);
-                bitmapLoadTask.execute(copyGroup.getPhoto_50());
+                h.copyAvatar.setImageResource(R.drawable.ic_launcher);
+                ImageLoader.getImageLoader().loadImage(copyGroup.getPhoto_50(), h.copyAvatar);
             } else {
                 Profile copyProfile = getWallResponse.getProfileInfoFromId(copyOwnerId);
                 h.copyName.setText(copyProfile.getFirst_name() + " " + copyProfile.getLast_name());
-                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.copyAvatar);
-                bitmapLoadTask.execute(copyProfile.getPhoto_50());
+                h.copyAvatar.setImageResource(R.drawable.ic_launcher);
+                ImageLoader.getImageLoader().loadImage(copyProfile.getPhoto_50(), h.copyAvatar);
             }
             h.copyText.setText(getWallResponse.getItems().get(position).getCopy_history().get(0).getText());
         } else {
-            h.copyLayout.setVisibility(View.INVISIBLE);
+            h.copyLayout.setVisibility(View.GONE);
         }
         return convertView;
 

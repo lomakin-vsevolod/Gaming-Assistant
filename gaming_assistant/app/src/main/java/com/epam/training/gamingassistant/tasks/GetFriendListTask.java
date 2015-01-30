@@ -14,6 +14,7 @@ public class GetFriendListTask extends AsyncTask<Void, Void, GetFriendsResponse>
 
     public interface OnFriendListResponse {
         public void onCompleted(GetFriendsResponse getFriendsResponse);
+
         public void onError(String error);
     }
 

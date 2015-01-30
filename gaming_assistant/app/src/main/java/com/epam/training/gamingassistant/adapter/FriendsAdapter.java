@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.epam.training.gamingassistant.R;
 import com.epam.training.gamingassistant.bo.friends.Friend;
-import com.epam.training.gamingassistant.tasks.BitmapLoadTask;
+import com.epam.training.gamingassistant.imageloader.ImageLoader;
 
 import java.util.List;
 
@@ -58,9 +58,10 @@ public class FriendsAdapter extends BaseAdapter {
 
         Holder h = (Holder) convertView.getTag();
         h.friend_name.setText(friends.get(position).getFirst_name() + " " + friends.get(position).getLast_name());
-        BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.friend_avatar);
-        bitmapLoadTask.execute(friends.get(position).getPhoto_100());
+        h.friend_avatar.setImageResource(R.drawable.ic_launcher);
+        ImageLoader.getImageLoader().loadImage(friends.get(position).getPhoto_100(), h.friend_avatar);
         return convertView;
     }
-    
+
+
 }

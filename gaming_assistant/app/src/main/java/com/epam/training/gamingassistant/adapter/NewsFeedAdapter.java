@@ -10,10 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.epam.training.gamingassistant.R;
-import com.epam.training.gamingassistant.bo.newsfeed.GetNewsFeedResponse;
 import com.epam.training.gamingassistant.bo.extended.Group;
 import com.epam.training.gamingassistant.bo.extended.Profile;
-import com.epam.training.gamingassistant.tasks.BitmapLoadTask;
+import com.epam.training.gamingassistant.bo.newsfeed.GetNewsFeedResponse;
+import com.epam.training.gamingassistant.imageloader.ImageLoader;
 
 
 public class NewsFeedAdapter extends BaseAdapter {
@@ -75,13 +75,25 @@ public class NewsFeedAdapter extends BaseAdapter {
         if (sourceId.startsWith("-")) {
             Group group = getNewsFeedResponse.getGroupInfoFromId(sourceId.substring(1));
             h.sourceName.setText(group.getName());
-            BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
-            bitmapLoadTask.execute(group.getPhoto_50());
+            h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
+            ImageLoader.getImageLoader().loadImage(group.getPhoto_50(), h.sourceAvatar);
+//            if (!group.getPhoto_50().equals(h.sourceAvatar.getTag())) {
+//                h.sourceAvatar.setTag(group.getPhoto_50());
+//                h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
+//                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
+//                bitmapLoadTask.execute(group.getPhoto_50());
+//            }
         } else {
             Profile profile = getNewsFeedResponse.getProfileInfoFromId(sourceId);
             h.sourceName.setText(profile.getFirst_name() + " " + profile.getLast_name());
-            BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
-            bitmapLoadTask.execute(profile.getPhoto_50());
+            h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
+            ImageLoader.getImageLoader().loadImage(profile.getPhoto_50(), h.sourceAvatar);
+//            if (!profile.getPhoto_50().equals(h.sourceAvatar.getTag())) {
+//                h.sourceAvatar.setTag(profile.getPhoto_50());
+//                h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
+//                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
+//                bitmapLoadTask.execute(profile.getPhoto_50());
+//            }
         }
         h.sourceText.setText(getNewsFeedResponse.getItems().get(position).getText());
 
@@ -92,17 +104,18 @@ public class NewsFeedAdapter extends BaseAdapter {
             if (copyOwnerId.startsWith("-")) {
                 Group copyGroup = getNewsFeedResponse.getGroupInfoFromId(copyOwnerId.substring(1));
                 h.copyName.setText(copyGroup.getName());
-                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.copyAvatar);
-                bitmapLoadTask.execute(copyGroup.getPhoto_50());
+                h.copyAvatar.setImageResource(R.drawable.ic_launcher);
+                ImageLoader.getImageLoader().loadImage(copyGroup.getPhoto_50(), h.copyAvatar);
+
             } else {
                 Profile copyProfile = getNewsFeedResponse.getProfileInfoFromId(copyOwnerId);
                 h.copyName.setText(copyProfile.getFirst_name() + " " + copyProfile.getLast_name());
-                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.copyAvatar);
-                bitmapLoadTask.execute(copyProfile.getPhoto_50());
+                h.copyAvatar.setImageResource(R.drawable.ic_launcher);
+                ImageLoader.getImageLoader().loadImage(copyProfile.getPhoto_50(), h.copyAvatar);
             }
             h.copyText.setText(getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getText());
         } else {
-            h.copyLayout.setVisibility(View.INVISIBLE);
+            h.copyLayout.setVisibility(View.GONE);
         }
         return convertView;
     }

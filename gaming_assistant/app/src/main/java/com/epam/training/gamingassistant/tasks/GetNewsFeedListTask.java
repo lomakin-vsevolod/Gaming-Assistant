@@ -8,21 +8,22 @@ import com.epam.training.gamingassistant.bo.newsfeed.GetNewsFeedResponse;
 import java.lang.ref.WeakReference;
 
 
-public class GetNewsFeedListTask extends AsyncTask<Void,Void,GetNewsFeedResponse> {
+public class GetNewsFeedListTask extends AsyncTask<Void, Void, GetNewsFeedResponse> {
 
     private WeakReference<OnNewsFeedListResponse> listener;
     private String token;
 
-    public interface OnNewsFeedListResponse{
+    public interface OnNewsFeedListResponse {
         public void onCompleted(GetNewsFeedResponse getNewsFeedResponse);
+
         public void onError(String error);
     }
 
-    public void setListener(OnNewsFeedListResponse listener){
+    public void setListener(OnNewsFeedListResponse listener) {
         this.listener = new WeakReference<OnNewsFeedListResponse>(listener);
     }
 
-    public GetNewsFeedListTask (String token){
+    public GetNewsFeedListTask(String token) {
         this.token = token;
     }
 

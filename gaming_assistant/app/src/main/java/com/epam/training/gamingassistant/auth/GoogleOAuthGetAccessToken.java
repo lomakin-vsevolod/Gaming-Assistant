@@ -24,9 +24,9 @@ import java.util.Map;
 
 
 public class GoogleOAuthGetAccessToken {
-   private static InputStream is = null;
-   private static JSONObject jObj = null;
-   private static String json = "";
+    private static InputStream is = null;
+    private static JSONObject jObj = null;
+    private static String json = "";
 
     public GoogleOAuthGetAccessToken() {
     }

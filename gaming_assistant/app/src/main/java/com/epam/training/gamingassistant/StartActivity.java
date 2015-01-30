@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -11,19 +12,20 @@ public class StartActivity extends ActionBarActivity {
 
     public static final int REQUEST_LOGIN = 0;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
+        Button button = (Button) findViewById(R.id.authorization);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivityForResult(new Intent(getApplicationContext(), LoginActivity.class), REQUEST_LOGIN);
+            }
+        });
     }
 
-
-    public void onGoogleClick(View view) {
-        //startActivity(new Intent(this,MainActivity.class));
-        startActivityForResult(new Intent(this, LoginActivity.class), REQUEST_LOGIN);
-    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

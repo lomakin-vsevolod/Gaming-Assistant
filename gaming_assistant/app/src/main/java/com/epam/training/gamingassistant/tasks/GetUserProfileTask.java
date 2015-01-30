@@ -9,9 +9,6 @@ import com.epam.training.gamingassistant.bo.wall.GetWallResponse;
 
 import java.lang.ref.WeakReference;
 
-/**
- * Created by NuclearOK on 29.01.2015.
- */
 public class GetUserProfileTask extends AsyncTask<Void, Void, UserProfile> {
 
     private WeakReference<OnUserProfile> listener;
@@ -35,7 +32,7 @@ public class GetUserProfileTask extends AsyncTask<Void, Void, UserProfile> {
     protected UserProfile doInBackground(Void... params) {
         GetUsersResponse getUsersResponse = VkApi.getUsersResponse(token);
         GetWallResponse getWallResponse = VkApi.getWallResponse(token);
-        UserProfile userProfile = new UserProfile(getUsersResponse,getWallResponse);
+        UserProfile userProfile = new UserProfile(getUsersResponse, getWallResponse);
         return userProfile;
     }
 

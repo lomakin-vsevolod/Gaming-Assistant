@@ -16,11 +16,14 @@ public class User {
     private String bdate;
 
     private City city;
+
     private class City {
         private int id;
         private String title;
     }
+
     private Country country;
+
     private class Country {
         private int id;
         private String title;
@@ -42,6 +45,7 @@ public class User {
     private int has_mobile;
 
     private Contacts contacts;
+
     private class Contacts {
         private String mobile_phone;
         private String home_phone;
@@ -58,9 +62,10 @@ public class User {
     private List<University> universities;
     private List<School> schools;
     private String status;
-    private String status_audio;
+    //private String status_audio;
 
     private Last_seen last_seen;
+
     private class Last_seen {
         private int time;
         private int platform;
@@ -70,6 +75,7 @@ public class User {
     private int common_count;
 
     private Counters counters;
+
     private class Counters {
         private int albums;
         private int videos;
@@ -85,6 +91,7 @@ public class User {
     }
 
     private Occupation occupation;
+
     private class Occupation {
         private String type;
         private int id;
@@ -94,7 +101,6 @@ public class User {
     private String nickname;
     private List<Relative> relatives;
     private int relation;
-
 
 
     private int wall_comments;
@@ -271,9 +277,9 @@ public class User {
         return status;
     }
 
-    public String getStatus_audio() {
-        return status_audio;
-    }
+    // public String getStatus_audio() {
+    //    return status_audio;
+    // }
 
     public Last_seen getLast_seen() {
         return last_seen;
@@ -422,7 +428,7 @@ public class User {
         this.universities = universities;
         this.schools = schools;
         this.status = status;
-        this.status_audio = status_audio;
+        //this.status_audio = status_audio;
         this.last_seen = last_seen;
         this.followers_count = followers_count;
         this.common_count = common_count;

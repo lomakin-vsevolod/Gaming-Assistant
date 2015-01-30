@@ -8,7 +8,7 @@ public class Friend {
     private String photo_100;
 
 
-    public Friend(String id, String first_name, String last_name,String photo_100){
+    public Friend(String id, String first_name, String last_name, String photo_100) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
