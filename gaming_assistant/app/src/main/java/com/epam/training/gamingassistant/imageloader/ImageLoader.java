@@ -20,6 +20,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class ImageLoader {
     private static ImageLoader imageLoader;
 
+    //TODO
     public static ImageLoader getImageLoader() {
         if (imageLoader == null) {
             imageLoader = new ImageLoader();
@@ -95,6 +96,7 @@ public class ImageLoader {
     private void nextTask() {
         if (queue.size() > 0) {
             Task task = queue.poll();
+            //TODO create executor
             BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(task);
             bitmapLoadTask.execute();
         } else {

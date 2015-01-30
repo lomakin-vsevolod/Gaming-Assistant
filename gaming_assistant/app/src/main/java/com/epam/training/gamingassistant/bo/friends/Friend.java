@@ -1,16 +1,19 @@
 package com.epam.training.gamingassistant.bo.friends;
 
 
+import com.google.gson.annotations.SerializedName;
+
 public class Friend {
     private String id;
-    private String first_name;
+    @SerializedName("first_name")
+    private String firstName;
     private String last_name;
     private String photo_100;
 
 
     public Friend(String id, String first_name, String last_name, String photo_100) {
         this.id = id;
-        this.first_name = first_name;
+        this.firstName = first_name;
         this.last_name = last_name;
         this.photo_100 = photo_100;
     }
@@ -20,8 +23,8 @@ public class Friend {
         return id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
     public String getLast_name() {

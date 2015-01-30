@@ -57,7 +57,7 @@ public class FriendsAdapter extends BaseAdapter {
         }
 
         Holder h = (Holder) convertView.getTag();
-        h.friend_name.setText(friends.get(position).getFirst_name() + " " + friends.get(position).getLast_name());
+        h.friend_name.setText(friends.get(position).getFirstName() + " " + friends.get(position).getLast_name());
         h.friend_avatar.setImageResource(R.drawable.ic_launcher);
         ImageLoader.getImageLoader().loadImage(friends.get(position).getPhoto_100(), h.friend_avatar);
         return convertView;
