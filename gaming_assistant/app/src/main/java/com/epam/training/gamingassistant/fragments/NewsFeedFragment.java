@@ -16,6 +16,7 @@ import com.epam.training.gamingassistant.MainActivity;
 import com.epam.training.gamingassistant.R;
 import com.epam.training.gamingassistant.adapter.NewsFeedAdapter;
 import com.epam.training.gamingassistant.bo.newsfeed.GetNewsFeedResponse;
+import com.epam.training.gamingassistant.db.FriendsDbHelper;
 import com.epam.training.gamingassistant.imageloader.ImageLoader;
 import com.epam.training.gamingassistant.tasks.GetNewsFeedListTask;
 

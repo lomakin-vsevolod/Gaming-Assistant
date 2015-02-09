@@ -1,34 +1,39 @@
 package com.epam.training.gamingassistant.bo.friends;
 
 
+import com.google.gson.annotations.SerializedName;
+
 public class Friend {
-    private String id;
-    private String first_name;
-    private String last_name;
-    private String photo_100;
+    @SerializedName("id")
+    private Long id;
+    @SerializedName("first_name")
+    private String firstName;
+    @SerializedName("last_name")
+    private String lastName;
+    @SerializedName("photo_100")
+    private String photo100;
 
-
-    public Friend(String id, String first_name, String last_name, String photo_100) {
+    public Friend(Long id, String firstName, String lastName, String photo100) {
         this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.photo_100 = photo_100;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.photo100 = photo100;
     }
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public String getPhoto_100() {
-        return photo_100;
+    public String getPhoto100() {
+        return photo100;
     }
 }

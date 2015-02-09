@@ -3,11 +3,10 @@ package com.epam.training.gamingassistant.imageloader;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-
 import android.support.v4.util.LruCache;
-import android.util.Log;
 import android.widget.ImageView;
+
+import com.epam.training.gamingassistant.os.CustomAsyncTask;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,16 +31,16 @@ public class ImageLoader {
         String url;
     }
 
-
+    private Set<ImageView> stopSet = new HashSet<ImageView>();
     private LinkedBlockingQueue<Task> queue = new LinkedBlockingQueue<Task>();
     private boolean isLoading = false;
     private boolean isStop = false;
     private final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
     private final int cacheSize = maxMemory / 8;
-    private LruCache<String,Bitmap> memoryCache = new LruCache<String,Bitmap>(cacheSize){
+    private LruCache<String, Bitmap> memoryCache = new LruCache<String, Bitmap>(cacheSize) {
         @Override
         protected int sizeOf(String key, Bitmap bitmap) {
-           return bitmap.getByteCount() / 1024;
+            return bitmap.getByteCount() / 1024;
         }
     };
 
@@ -55,7 +54,6 @@ public class ImageLoader {
         stopSet.clear();
     }
 
-    private Set<ImageView> stopSet = new HashSet<ImageView>();
 
     public void stop() {
         isStop = true;
@@ -69,8 +67,7 @@ public class ImageLoader {
         Bitmap bitmap = memoryCache.get(url);
         imageView.setImageBitmap(bitmap);
         imageView.setTag(url);
-        if (bitmap != null){
-            Log.w("memoryCache","TAKE From memory!!!");
+        if (bitmap != null) {
             return;
         }
         Task task = new Task();
@@ -102,7 +99,7 @@ public class ImageLoader {
         }
     }
 
-    public class BitmapLoadTask extends AsyncTask<Void, Void, Bitmap> {
+    public class BitmapLoadTask extends CustomAsyncTask<Void, Void, Bitmap> {
         private Task task;
 
         public BitmapLoadTask(Task task) {
@@ -132,6 +129,11 @@ public class ImageLoader {
         }
 
         @Override
+        protected void onPostException(Exception e) {
+
+        }
+
+        @Override
         protected void onPostExecute(Bitmap bitmap) {
             if (task.imageView != null && bitmap != null) {
                 final ImageView imageView = task.imageView.get();
@@ -140,7 +142,7 @@ public class ImageLoader {
                         imageView.setImageBitmap(bitmap);
                     }
                 }
-                memoryCache.put(task.url,bitmap);
+                memoryCache.put(task.url, bitmap);
             }
             nextTask();
         }

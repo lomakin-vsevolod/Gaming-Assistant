@@ -18,6 +18,7 @@
     <string name="action_search">Search</string>
     <string name="vk_authorization">Vk Authorization</string>
     <string name="send">Send</string>
+    <string name="empty">Empty.</string>
 
 
 </resources>

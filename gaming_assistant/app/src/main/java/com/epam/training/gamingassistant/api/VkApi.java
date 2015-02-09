@@ -27,28 +27,28 @@ public class VkApi {
     }
 
     private static String doApiRequest(String url) {
-        BufferedReader in = null;
+        BufferedReader bufferedReader = null;
         try {
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet();
-            request.setURI(new URI(url));
-            HttpResponse response = client.execute(request);
-            in = new BufferedReader
-                    (new InputStreamReader(response.getEntity().getContent()));
-            StringBuilder sb = new StringBuilder("");
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet();
+            httpGet.setURI(new URI(url));
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            bufferedReader = new BufferedReader
+                    (new InputStreamReader(httpResponse.getEntity().getContent()));
+            StringBuilder stringBuilder = new StringBuilder("");
             String line = "";
-            String NL = System.getProperty("line.separator");
-            while ((line = in.readLine()) != null) {
-                sb.append(line + NL);
+            String lineSeparator = System.getProperty("line.separator");
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line + lineSeparator);
             }
-            return sb.toString();
+            return stringBuilder.toString();
 
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         } finally {
-            if (in != null) {
+            if (bufferedReader != null) {
                 try {
-                    in.close();
+                    bufferedReader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -60,7 +60,10 @@ public class VkApi {
     public static GetFriendsResponse getFriendsList(String token) {
         try {
             String response = doApiRequest(VkApiConstants.FRIENDS_GET_URI + token);
-            JSONObject jsonObject = new JSONObject(response).getJSONObject("response");
+            JSONObject jsonObject = new JSONObject();
+            if (response != null) {
+                jsonObject = new JSONObject(response).getJSONObject("response");
+            }
             GetFriendsResponse getFriendsResponse = gson.fromJson(jsonObject.toString(), GetFriendsResponse.class);
             return getFriendsResponse;
         } catch (JSONException e) {
@@ -72,7 +75,10 @@ public class VkApi {
     public static GetNewsFeedResponse getFeed(String token) {
         try {
             String response = doApiRequest(VkApiConstants.NEWS_FEED_GET_URI + token);
-            JSONObject jsonObject = new JSONObject(response).getJSONObject("response");
+            JSONObject jsonObject = new JSONObject();
+            if (response != null) {
+                jsonObject = new JSONObject(response).getJSONObject("response");
+            }
             GetNewsFeedResponse newsFeedResponse = gson.fromJson(jsonObject.toString(), GetNewsFeedResponse.class);
             return newsFeedResponse;
         } catch (JSONException e) {
