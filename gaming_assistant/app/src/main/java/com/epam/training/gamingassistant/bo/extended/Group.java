@@ -1,20 +1,19 @@
 package com.epam.training.gamingassistant.bo.extended;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Group {
-    private String id;
+
+    @SerializedName("id")
+    private Long id;
+    @SerializedName("name")
     private String name;
-    private String screen_name;
-    private String photo_50;
+    @SerializedName("screen_name")
+    private String screenName;
+    @SerializedName("photo_50")
+    private String photo50;
 
-
-    public Group(String id, String name, String screen_name, String photo_50) {
-        this.id = id;
-        this.name = name;
-        this.screen_name = screen_name;
-        this.photo_50 = photo_50;
-    }
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -22,12 +21,18 @@ public class Group {
         return name;
     }
 
-    public String getScreen_name() {
-        return screen_name;
+    public String getScreenName() {
+        return screenName;
     }
 
-    public String getPhoto_50() {
-        return photo_50;
+    public String getPhoto50() {
+        return photo50;
     }
 
+    public Group(Long id, String name, String screenName, String photo50) {
+        this.id = id;
+        this.name = name;
+        this.screenName = screenName;
+        this.photo50 = photo50;
+    }
 }

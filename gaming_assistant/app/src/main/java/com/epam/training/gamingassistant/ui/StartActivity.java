@@ -1,4 +1,4 @@
-package com.epam.training.gamingassistant;
+package com.epam.training.gamingassistant.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.epam.training.gamingassistant.R;
 
 
 public class StartActivity extends ActionBarActivity {
@@ -20,7 +22,6 @@ public class StartActivity extends ActionBarActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 startActivityForResult(new Intent(getApplicationContext(), LoginActivity.class), REQUEST_LOGIN);
             }
         });
@@ -37,7 +38,7 @@ public class StartActivity extends ActionBarActivity {
             finish();
         } else {
             if (requestCode == REQUEST_LOGIN && resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, data.getStringExtra(MainActivity.ERROR), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
             }
         }
     }

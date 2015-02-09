@@ -1,27 +1,31 @@
-package com.epam.training.gamingassistant.fragments;
+package com.epam.training.gamingassistant.ui.fragments;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.epam.training.gamingassistant.MainActivity;
 import com.epam.training.gamingassistant.R;
 import com.epam.training.gamingassistant.adapter.FriendsAdapter;
 import com.epam.training.gamingassistant.bo.friends.Friend;
-import com.epam.training.gamingassistant.db.FriendsDbHelper;
 import com.epam.training.gamingassistant.imageloader.ImageLoader;
 import com.epam.training.gamingassistant.loaders.FriendsLoader;
+import com.epam.training.gamingassistant.ui.MainActivity;
+import com.epam.training.gamingassistant.ui.UserProfileActivity;
 
 import java.util.List;
 
@@ -34,7 +38,9 @@ public class FriendListFragment extends Fragment implements LoaderManager.Loader
     private ListView listView;
     private ProgressBar progressBar;
     private TextView textView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private FriendsAdapter friendsAdapter;
+    private LoaderManager.LoaderCallbacks<List<Friend>> loaderCallbacks;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,8 +56,16 @@ public class FriendListFragment extends Fragment implements LoaderManager.Loader
         listView = (ListView) view.findViewById(R.id.friend_list);
         progressBar = (ProgressBar) view.findViewById(R.id.progress);
         textView = (TextView) view.findViewById(R.id.empty);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.friends_frame);
+        loaderCallbacks = this;
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getLoaderManager().restartLoader(FRIENDS_LOADER_ID, null, loaderCallbacks);
+            }
+        });
         showProgress();
-        getLoaderManager().initLoader(FRIENDS_LOADER_ID, null, this);
+        getLoaderManager().initLoader(FRIENDS_LOADER_ID, null, loaderCallbacks);
     }
 
 
@@ -76,9 +90,22 @@ public class FriendListFragment extends Fragment implements LoaderManager.Loader
     }
 
     public void setData(List<Friend> friendList) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
         if (friendList != null) {
             friendsAdapter = new FriendsAdapter(getActivity(), friendList);
             listView.setAdapter(friendsAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Long userId = friendsAdapter.getId(position);
+                    Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                    intent.putExtra(MainActivity.TOKEN, token);
+                    intent.putExtra(MainActivity.USER_ID, userId.toString());
+                    startActivity(intent);
+                }
+            });
             listView.setOnScrollListener(new AbsListView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -101,7 +128,8 @@ public class FriendListFragment extends Fragment implements LoaderManager.Loader
                 }
             });
         } else {
-            listView.setVisibility(View.GONE);
+            Toast.makeText(getActivity(), "Check your internet connection", Toast.LENGTH_SHORT).show();
+            swipeRefreshLayout.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
         }
 
@@ -111,12 +139,12 @@ public class FriendListFragment extends Fragment implements LoaderManager.Loader
 
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
-        listView.setVisibility(View.GONE);
+        swipeRefreshLayout.setVisibility(View.GONE);
     }
 
     public void dismissProgress() {
         progressBar.setVisibility(View.GONE);
-        listView.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
 
 

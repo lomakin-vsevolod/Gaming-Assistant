@@ -30,7 +30,7 @@ public class VkApiConstants {
 
     private static final String METHOD_NEWS_FEED_GET = METHOD_URL + "newsfeed.get?";
     private static final String FILTERS_NEWS_FEED_GET_VALUE = FILTERS + "post";
-    private static final String COUNT_NEWS_FEED_GET_VALUE = COUNT + "10";
+    private static final String COUNT_NEWS_FEED_GET_VALUE = COUNT + "30";
     public static final String NEWS_FEED_GET_URI = METHOD_NEWS_FEED_GET + VERSION + "&" + FILTERS_NEWS_FEED_GET_VALUE + "&" + COUNT_NEWS_FEED_GET_VALUE + "&" + ACCESS_TOKEN;
 
 

@@ -4,7 +4,6 @@ package com.epam.training.gamingassistant.loaders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 import com.epam.training.gamingassistant.api.VkApi;
 import com.epam.training.gamingassistant.bo.friends.Friend;
@@ -14,7 +13,7 @@ import com.epam.training.gamingassistant.db.FriendsDbHelper;
 import java.util.List;
 
 public class FriendsLoader extends AsyncTaskLoader<List<Friend>> {
-    private List<Friend> friendList;
+
     private String token;
 
     public FriendsLoader(Context context, Bundle args, String token) {
@@ -45,8 +44,6 @@ public class FriendsLoader extends AsyncTaskLoader<List<Friend>> {
         if (isReset()) {
             return;
         }
-        List<Friend> oldData = friendList;
-        friendList = data;
 
         if (isStarted()) {
             super.deliverResult(data);
@@ -55,11 +52,7 @@ public class FriendsLoader extends AsyncTaskLoader<List<Friend>> {
 
     @Override
     protected void onStartLoading() {
-        if (friendList != null) {
-            deliverResult(friendList);
-        } else {
-            forceLoad();
-        }
+        forceLoad();
     }
 
     @Override
@@ -70,9 +63,6 @@ public class FriendsLoader extends AsyncTaskLoader<List<Friend>> {
     @Override
     protected void onReset() {
         onStopLoading();
-        if (friendList != null) {
-            friendList = null;
-        }
     }
 
     @Override

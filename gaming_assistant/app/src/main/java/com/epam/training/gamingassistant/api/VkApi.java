@@ -26,7 +26,6 @@ public class VkApi {
     private VkApi() {
     }
 
-    //TODO refactor, format and etc
     private static String doApiRequest(String url) {
         BufferedReader bufferedReader = null;
         try {
@@ -46,7 +45,7 @@ public class VkApi {
 
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
-            //TODO do not ignore exception
+
         } finally {
             if (bufferedReader != null) {
                 try {
@@ -98,7 +97,10 @@ public class VkApi {
     public static GetWallResponse getWallResponse(String token) {
         try {
             String response = doApiRequest(VkApiConstants.WALL_GET_URI + token);
-            JSONObject jsonObject = new JSONObject(response).getJSONObject("response");
+            JSONObject jsonObject = new JSONObject();
+            if (response != null) {
+                jsonObject = new JSONObject(response).getJSONObject("response");
+            }
             GetWallResponse wallResponse = gson.fromJson(jsonObject.toString(), GetWallResponse.class);
             return wallResponse;
         } catch (JSONException e) {
@@ -107,9 +109,9 @@ public class VkApi {
         return null;
     }
 
-    public static Void postOnWall(String token) {
+    public static String postOnWall(String token) {
         try {
-            String response = doApiRequest(VkApiConstants.WALL_POST_URI + token);
+            return doApiRequest(VkApiConstants.WALL_POST_URI + token);
         } catch (Exception e) {
             e.printStackTrace();
         }

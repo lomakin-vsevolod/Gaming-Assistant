@@ -2,80 +2,90 @@ package com.epam.training.gamingassistant.bo.newsfeed;
 
 import com.epam.training.gamingassistant.bo.attachments.Attachment;
 import com.epam.training.gamingassistant.bo.wall.Post;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class News {
 
-    public News(String type, String final_post, String text, String can_edit, String can_delete, List<Attachment> attachments, List<Post> copy_history, String source_id, String date, String post_id, String post_type) {
+    public News(String type, String finalPost, String text, String canEdit, String canDelete, List<Attachment> attachments, List<Post> copyHistory, Long sourceId, String date, String postId, String postType) {
         this.type = type;
-        this.final_post = final_post;
+        this.finalPost = finalPost;
         this.text = text;
-        this.can_edit = can_edit;
-        this.can_delete = can_delete;
+        this.canEdit = canEdit;
+        this.canDelete = canDelete;
         this.attachments = attachments;
-        this.copy_history = copy_history;
-        this.source_id = source_id;
+        this.copyHistory = copyHistory;
+        this.sourceId = sourceId;
         this.date = date;
-        this.post_id = post_id;
-        this.post_type = post_type;
+        this.postId = postId;
+        this.postType = postType;
     }
 
+    @SerializedName("type")
     private String type;
-    private String final_post;
+    @SerializedName("final_post")
+    private String finalPost;
+    @SerializedName("text")
     private String text;
-    private String can_edit;
-    private String can_delete;
+    @SerializedName("can_edit")
+    private String canEdit;
+    @SerializedName("can_delete")
+    private String canDelete;
+    @SerializedName("attachments")
     private List<Attachment> attachments;
-    private List<Post> copy_history;
-    private String source_id;
+    @SerializedName("copy_history")
+    private List<Post> copyHistory;
+    @SerializedName("source_id")
+    private Long sourceId;
+    @SerializedName("date")
     private String date;
-    private String post_id;
-    private String post_type;
-
-
-    public List<Post> getCopy_history() {
-        return copy_history;
-    }
+    @SerializedName("post_id")
+    private String postId;
+    @SerializedName("post_type")
+    private String postType;
 
     public String getType() {
         return type;
     }
 
-    public String getSource_id() {
-        return source_id;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getPost_id() {
-        return post_id;
-    }
-
-    public String getPost_type() {
-        return post_type;
-    }
-
-    public String getFinal_post() {
-        return final_post;
+    public String getFinalPost() {
+        return finalPost;
     }
 
     public String getText() {
         return text;
     }
 
-    public String getCan_edit() {
-        return can_edit;
+    public String getCanEdit() {
+        return canEdit;
     }
 
-    public String getCan_delete() {
-        return can_delete;
+    public String getCanDelete() {
+        return canDelete;
     }
 
     public List<Attachment> getAttachments() {
         return attachments;
     }
 
+    public List<Post> getCopyHistory() {
+        return copyHistory;
+    }
+
+    public Long getSourceId() {
+        return sourceId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public String getPostType() {
+        return postType;
+    }
 }

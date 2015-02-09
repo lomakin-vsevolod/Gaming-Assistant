@@ -2,18 +2,22 @@ package com.epam.training.gamingassistant.bo.newsfeed;
 
 import com.epam.training.gamingassistant.bo.extended.Group;
 import com.epam.training.gamingassistant.bo.extended.Profile;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class GetNewsFeedResponse {
-
+    @SerializedName("items")
     private List<News> items;
+    @SerializedName("profiles")
     private List<Profile> profiles;
+    @SerializedName("groups")
     private List<Group> groups;
-    private String next_from;
+    @SerializedName("next_from")
+    private String nextFrom;
 
 
-    public Profile getProfileInfoFromId(String id) {
+    public Profile getProfileInfoFromId(Long id) {
         if (profiles.size() != 0) {
             for (int i = 0; i < profiles.size(); i++) {
                 if (profiles.get(i).getId().equals(id)) {
@@ -25,10 +29,11 @@ public class GetNewsFeedResponse {
         return null;
     }
 
-    public Group getGroupInfoFromId(String id) {
+    public Group getGroupInfoFromId(Long id) {
+        Long groupId = Math.abs(id);
         if (groups.size() != 0) {
             for (int i = 0; i < groups.size(); i++) {
-                if (groups.get(i).getId().equals(id)) {
+                if (groups.get(i).getId().equals(groupId)) {
                     Group group;
                     return group = groups.get(i);
                 }
@@ -37,8 +42,8 @@ public class GetNewsFeedResponse {
         return null;
     }
 
-    public String getNext_from() {
-        return next_from;
+    public String getNextFrom() {
+        return nextFrom;
     }
 
     public List<News> getItems() {

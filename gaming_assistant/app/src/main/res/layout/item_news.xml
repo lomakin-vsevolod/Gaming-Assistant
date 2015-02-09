@@ -14,10 +14,11 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/source_avatar"
-            android:paddingRight="8dp" />
+            android:paddingRight="8dp"
+            />
 
         <TextView
             android:id="@+id/source_name"
@@ -55,8 +56,8 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/copy_avatar"
                 android:paddingRight="8dp" />
 
@@ -78,8 +79,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true" />
+             />
 
         </LinearLayout>
 

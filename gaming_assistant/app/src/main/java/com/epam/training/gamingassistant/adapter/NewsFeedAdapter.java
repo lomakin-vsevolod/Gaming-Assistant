@@ -70,50 +70,33 @@ public class NewsFeedAdapter extends BaseAdapter {
         }
 
         Holder h = (Holder) convertView.getTag();
-        String sourceId = getNewsFeedResponse.getItems().get(position).getSource_id();
+        Long sourceId = getNewsFeedResponse.getItems().get(position).getSourceId();
 
-        if (sourceId.startsWith("-")) {
-            Group group = getNewsFeedResponse.getGroupInfoFromId(sourceId.substring(1));
+        if (sourceId < 0) {
+            Group group = getNewsFeedResponse.getGroupInfoFromId(sourceId);
             h.sourceName.setText(group.getName());
-            h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
-            ImageLoader.getImageLoader().loadImage(group.getPhoto_50(), h.sourceAvatar);
-//            if (!group.getPhoto_50().equals(h.sourceAvatar.getTag())) {
-//                h.sourceAvatar.setTag(group.getPhoto_50());
-//                h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
-//                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
-//                bitmapLoadTask.execute(group.getPhoto_50());
-//            }
+            ImageLoader.getImageLoader().loadImage(group.getPhoto50(), h.sourceAvatar);
         } else {
             Profile profile = getNewsFeedResponse.getProfileInfoFromId(sourceId);
-            h.sourceName.setText(profile.getFirst_name() + " " + profile.getLast_name());
-            h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
-            ImageLoader.getImageLoader().loadImage(profile.getPhoto_50(), h.sourceAvatar);
-//            if (!profile.getPhoto_50().equals(h.sourceAvatar.getTag())) {
-//                h.sourceAvatar.setTag(profile.getPhoto_50());
-//                h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
-//                BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(h.sourceAvatar);
-//                bitmapLoadTask.execute(profile.getPhoto_50());
-//            }
+            h.sourceName.setText(profile.getFirstName() + " " + profile.getLastName());
+            ImageLoader.getImageLoader().loadImage(profile.getPhoto50(), h.sourceAvatar);
         }
         h.sourceText.setText(getNewsFeedResponse.getItems().get(position).getText());
 
 
-        if (getNewsFeedResponse.getItems().get(position).getCopy_history() != null && getNewsFeedResponse.getItems().get(position).getCopy_history().size() > 0) {
-            String copyOwnerId = getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getOwner_id();
+        if (getNewsFeedResponse.getItems().get(position).getCopyHistory() != null && getNewsFeedResponse.getItems().get(position).getCopyHistory().size() > 0) {
+            Long copyOwnerId = getNewsFeedResponse.getItems().get(position).getCopyHistory().get(0).getOwnerId();
             h.copyLayout.setVisibility(View.VISIBLE);
-            if (copyOwnerId.startsWith("-")) {
-                Group copyGroup = getNewsFeedResponse.getGroupInfoFromId(copyOwnerId.substring(1));
+            if (copyOwnerId < 0) {
+                Group copyGroup = getNewsFeedResponse.getGroupInfoFromId(copyOwnerId);
                 h.copyName.setText(copyGroup.getName());
-                h.copyAvatar.setImageResource(R.drawable.ic_launcher);
-                ImageLoader.getImageLoader().loadImage(copyGroup.getPhoto_50(), h.copyAvatar);
-
+                ImageLoader.getImageLoader().loadImage(copyGroup.getPhoto50(), h.copyAvatar);
             } else {
                 Profile copyProfile = getNewsFeedResponse.getProfileInfoFromId(copyOwnerId);
-                h.copyName.setText(copyProfile.getFirst_name() + " " + copyProfile.getLast_name());
-                h.copyAvatar.setImageResource(R.drawable.ic_launcher);
-                ImageLoader.getImageLoader().loadImage(copyProfile.getPhoto_50(), h.copyAvatar);
+                h.copyName.setText(copyProfile.getFirstName() + " " + copyProfile.getLastName());
+                ImageLoader.getImageLoader().loadImage(copyProfile.getPhoto50(), h.copyAvatar);
             }
-            h.copyText.setText(getNewsFeedResponse.getItems().get(position).getCopy_history().get(0).getText());
+            h.copyText.setText(getNewsFeedResponse.getItems().get(position).getCopyHistory().get(0).getText());
         } else {
             h.copyLayout.setVisibility(View.GONE);
         }

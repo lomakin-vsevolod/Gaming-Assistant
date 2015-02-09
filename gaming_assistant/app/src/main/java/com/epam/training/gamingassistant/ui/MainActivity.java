@@ -1,4 +1,4 @@
-package com.epam.training.gamingassistant;
+package com.epam.training.gamingassistant.ui;
 
 
 import android.content.res.Configuration;
@@ -17,9 +17,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.epam.training.gamingassistant.fragments.FriendListFragment;
-import com.epam.training.gamingassistant.fragments.NewsFeedFragment;
-import com.epam.training.gamingassistant.fragments.ProfileFragment;
+import com.epam.training.gamingassistant.R;
+import com.epam.training.gamingassistant.ui.fragments.FriendListFragment;
+import com.epam.training.gamingassistant.ui.fragments.NewsFeedFragment;
+import com.epam.training.gamingassistant.ui.fragments.ProfileFragment;
 
 public class MainActivity extends ActionBarActivity {
     public static final String TOKEN = "token";

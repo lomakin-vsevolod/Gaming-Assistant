@@ -45,6 +45,10 @@ public class FriendsAdapter extends BaseAdapter {
         return friends.get(position).hashCode();
     }
 
+    public long getId(int position) {
+        return friends.get(position).getId();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {

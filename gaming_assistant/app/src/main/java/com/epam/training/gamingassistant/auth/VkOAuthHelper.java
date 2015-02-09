@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import com.epam.training.gamingassistant.MainActivity;
+import com.epam.training.gamingassistant.ui.MainActivity;
 
 public class VkOAuthHelper {
 
@@ -33,7 +33,6 @@ public class VkOAuthHelper {
                 activity.finish();
                 return true;
             } else {
-                Log.d("", "ACCESS_DENIED_HERE");
                 String errorDescription = uri.getQueryParameter("error_description");
                 Intent intent = new Intent();
                 intent.putExtra(MainActivity.ERROR, errorDescription);

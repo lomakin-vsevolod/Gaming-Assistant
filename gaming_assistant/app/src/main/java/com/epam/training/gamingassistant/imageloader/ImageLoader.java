@@ -93,7 +93,6 @@ public class ImageLoader {
     private void nextTask() {
         if (queue.size() > 0) {
             Task task = queue.poll();
-            //TODO create executor
             BitmapLoadTask bitmapLoadTask = new BitmapLoadTask(task);
             bitmapLoadTask.execute();
         } else {

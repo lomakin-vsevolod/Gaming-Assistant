@@ -69,37 +69,33 @@ public class WallAdapter extends BaseAdapter {
         }
 
         Holder h = (Holder) convertView.getTag();
-        String ownerId = getWallResponse.getItems().get(position).getFrom_id();
+        Long ownerId = getWallResponse.getItems().get(position).getFromId();
 
-        if (ownerId.startsWith("-")) {
-            Group group = getWallResponse.getGroupInfoFromId(ownerId.substring(1));
+        if (ownerId < 0) {
+            Group group = getWallResponse.getGroupInfoFromId(ownerId);
             h.sourceName.setText(group.getName());
-            h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
-            ImageLoader.getImageLoader().loadImage(group.getPhoto_50(), h.sourceAvatar);
+            ImageLoader.getImageLoader().loadImage(group.getPhoto50(), h.sourceAvatar);
         } else {
             Profile profile = getWallResponse.getProfileInfoFromId(ownerId);
-            h.sourceName.setText(profile.getFirst_name() + " " + profile.getLast_name());
-            h.sourceAvatar.setImageResource(R.drawable.ic_launcher);
-            ImageLoader.getImageLoader().loadImage(profile.getPhoto_50(), h.sourceAvatar);
+            h.sourceName.setText(profile.getFirstName() + " " + profile.getLastName());
+            ImageLoader.getImageLoader().loadImage(profile.getPhoto50(), h.sourceAvatar);
         }
         h.sourceText.setText(getWallResponse.getItems().get(position).getText());
 
 
-        if (getWallResponse.getItems().get(position).getCopy_history() != null && getWallResponse.getItems().get(position).getCopy_history().size() > 0) {
-            String copyOwnerId = getWallResponse.getItems().get(position).getCopy_history().get(0).getOwner_id();
+        if (getWallResponse.getItems().get(position).getCopyHistory() != null && getWallResponse.getItems().get(position).getCopyHistory().size() > 0) {
+            Long copyOwnerId = getWallResponse.getItems().get(position).getCopyHistory().get(0).getOwnerId();
             h.copyLayout.setVisibility(View.VISIBLE);
-            if (copyOwnerId.startsWith("-")) {
-                Group copyGroup = getWallResponse.getGroupInfoFromId(copyOwnerId.substring(1));
+            if (copyOwnerId < 0) {
+                Group copyGroup = getWallResponse.getGroupInfoFromId(copyOwnerId);
                 h.copyName.setText(copyGroup.getName());
-                h.copyAvatar.setImageResource(R.drawable.ic_launcher);
-                ImageLoader.getImageLoader().loadImage(copyGroup.getPhoto_50(), h.copyAvatar);
+                ImageLoader.getImageLoader().loadImage(copyGroup.getPhoto50(), h.copyAvatar);
             } else {
                 Profile copyProfile = getWallResponse.getProfileInfoFromId(copyOwnerId);
-                h.copyName.setText(copyProfile.getFirst_name() + " " + copyProfile.getLast_name());
-                h.copyAvatar.setImageResource(R.drawable.ic_launcher);
-                ImageLoader.getImageLoader().loadImage(copyProfile.getPhoto_50(), h.copyAvatar);
+                h.copyName.setText(copyProfile.getFirstName() + " " + copyProfile.getLastName());
+                ImageLoader.getImageLoader().loadImage(copyProfile.getPhoto50(), h.copyAvatar);
             }
-            h.copyText.setText(getWallResponse.getItems().get(position).getCopy_history().get(0).getText());
+            h.copyText.setText(getWallResponse.getItems().get(position).getCopyHistory().get(0).getText());
         } else {
             h.copyLayout.setVisibility(View.GONE);
         }

@@ -1,4 +1,4 @@
-package com.epam.training.gamingassistant;
+package com.epam.training.gamingassistant.ui;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.epam.training.gamingassistant.R;
 import com.epam.training.gamingassistant.auth.VkOAuthHelper;
 
 
