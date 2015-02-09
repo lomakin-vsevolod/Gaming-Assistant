@@ -26,6 +26,7 @@ public class VkApi {
     private VkApi() {
     }
 
+    //TODO refactor, format and etc
     private static String doApiRequest(String url) {
         BufferedReader bufferedReader = null;
         try {
@@ -45,6 +46,7 @@ public class VkApi {
 
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
+            //TODO do not ignore exception
         } finally {
             if (bufferedReader != null) {
                 try {
